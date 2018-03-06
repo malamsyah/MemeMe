@@ -38,7 +38,7 @@
                                 <rect key="frame" x="0.0" y="32" width="375" height="603"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KAR-jg-cWy">
-                                <rect key="frame" x="0.0" y="96" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="128" width="375" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="hFt-bd-BcH"/>
                                 </constraints>
@@ -47,7 +47,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kfy-2k-O3P">
-                                <rect key="frame" x="0.0" y="531" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="499" width="375" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="jUi-ZV-bi3"/>
                                 </constraints>
@@ -78,12 +78,12 @@
                         <constraints>
                             <constraint firstItem="9Ri-t7-9ge" firstAttribute="centerX" secondItem="R30-jd-k9y" secondAttribute="centerX" id="0El-8v-jff"/>
                             <constraint firstItem="kfy-2k-O3P" firstAttribute="width" secondItem="9Ri-t7-9ge" secondAttribute="width" id="A68-2d-MQt"/>
-                            <constraint firstItem="dw7-EZ-JcL" firstAttribute="top" secondItem="kfy-2k-O3P" secondAttribute="bottom" constant="32" id="F9t-ag-sVQ"/>
+                            <constraint firstItem="dw7-EZ-JcL" firstAttribute="top" secondItem="kfy-2k-O3P" secondAttribute="bottom" constant="64" id="F9t-ag-sVQ"/>
                             <constraint firstItem="9Ri-t7-9ge" firstAttribute="centerY" secondItem="R30-jd-k9y" secondAttribute="centerY" id="Hoo-fp-THn"/>
                             <constraint firstItem="dw7-EZ-JcL" firstAttribute="bottom" secondItem="85W-eS-xet" secondAttribute="bottom" id="IXu-Pw-fgW"/>
                             <constraint firstItem="KAR-jg-cWy" firstAttribute="width" secondItem="9Ri-t7-9ge" secondAttribute="width" id="Phc-ps-dFm"/>
                             <constraint firstItem="kfy-2k-O3P" firstAttribute="centerX" secondItem="R30-jd-k9y" secondAttribute="centerX" id="Rld-TM-a8Z"/>
-                            <constraint firstItem="KAR-jg-cWy" firstAttribute="top" secondItem="85W-eS-xet" secondAttribute="top" constant="32" id="UUf-p5-YIT"/>
+                            <constraint firstItem="KAR-jg-cWy" firstAttribute="top" secondItem="85W-eS-xet" secondAttribute="top" constant="64" id="UUf-p5-YIT"/>
                             <constraint firstItem="9Ri-t7-9ge" firstAttribute="height" secondItem="85W-eS-xet" secondAttribute="height" id="UzQ-vh-Bnf"/>
                             <constraint firstItem="KAR-jg-cWy" firstAttribute="centerX" secondItem="R30-jd-k9y" secondAttribute="centerX" id="c1z-3u-AHa"/>
                             <constraint firstItem="9Ri-t7-9ge" firstAttribute="width" secondItem="85W-eS-xet" secondAttribute="width" id="tHP-4o-u1Z"/>

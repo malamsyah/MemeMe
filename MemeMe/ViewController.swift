@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UINavigationControllerDelegate {
     
     @IBOutlet weak var shareBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var cancelBarButtonItem: UIBarButtonItem!
@@ -27,23 +27,22 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configTextField(text: "TOP", textField: topTextField)
+        configTextField(text: "BOTTOM", textField: bottomTextField)
+    }
+    
+    func configTextField(text:String, textField:UITextField) {
         let textStyles = [
             NSAttributedStringKey.strokeColor.rawValue : UIColor.black,
             NSAttributedStringKey.foregroundColor.rawValue : UIColor.white,
             NSAttributedStringKey.font.rawValue : UIFont(name: "impact", size: 40)!,
             NSAttributedStringKey.strokeWidth.rawValue : -3,
             ] as [String : Any]
-       
-        topTextField.defaultTextAttributes = textStyles
-        topTextField.textAlignment = .center
-        topTextField.text! = "TOP"
-        topTextField.delegate = self
         
-        bottomTextField.defaultTextAttributes = textStyles
-        bottomTextField.textAlignment = .center
-        bottomTextField.text! = "BOTTOM"
-        bottomTextField.delegate = self
-        
+        textField.defaultTextAttributes = textStyles
+        textField.textAlignment = .center
+        textField.text! = text
+        textField.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,49 +66,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     @IBAction func cancelButtonAction(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func getImageFromCamera(_: AnyObject) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        if (UIImagePickerController.isSourceTypeAvailable(.camera)){
-            imagePicker.sourceType = .camera
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-    }
-    
-    
-    @IBAction func getImageFromAlbum(_: AnyObject) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        self.present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.memeImageView.image = image
-        }
-        
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.text == "TOP" || textField.text == "BOTTOM"{
-            textField.text = ""
-        }
-        
-        if textField.isEqual(bottomTextField) {
-            self.subscribeToKeyboardNotifications()
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        if textField.isEqual(bottomTextField){
-            self.unsubscribeFromKeyboardNotifications()
-        }
-        return true
     }
     
     @objc func keyboardWillShow(_ notification:Notification) {
@@ -168,11 +124,60 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         let activity = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         
         activity.completionWithItemsHandler = { (activity, success, items, error) in
-            let applicationDelegate = (UIApplication.shared.delegate as! AppDelegate)
-            applicationDelegate.meme = self.meme
-            self.meme = Meme(topText: "TOP", bottomText: "BOTTOM", originalImage: UIImage(), memedImage: UIImage())
+            if success {
+                let applicationDelegate = (UIApplication.shared.delegate as! AppDelegate)
+                applicationDelegate.meme = self.meme
+                self.meme = Meme(topText: "TOP", bottomText: "BOTTOM", originalImage: UIImage(), memedImage: UIImage())
+            }
         }
         self.present(activity, animated: true, completion:nil)
+    }
+}
+
+extension ViewController : UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.text == "TOP" || textField.text == "BOTTOM"{
+            textField.text = ""
+        }
+        
+        if textField.isEqual(bottomTextField) {
+            self.subscribeToKeyboardNotifications()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if textField.isEqual(bottomTextField){
+            self.unsubscribeFromKeyboardNotifications()
+        }
+        return true
+    }
+}
+
+extension ViewController : UIImagePickerControllerDelegate {
+    @IBAction func getImageFromCamera(_: AnyObject) {
+        chooseSourceType(sourceType: .camera)
+    }
+    
+    @IBAction func getImageFromAlbum(_: AnyObject) {
+        chooseSourceType(sourceType: .photoLibrary)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.memeImageView.image = image
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func chooseSourceType(sourceType: UIImagePickerControllerSourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        if (UIImagePickerController.isSourceTypeAvailable(sourceType)){
+            imagePicker.sourceType = sourceType
+            self.present(imagePicker, animated: true, completion: nil)
+        }
     }
 }
 
