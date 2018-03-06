@@ -120,11 +120,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     func share() {
-        save()
         let activity = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        
         activity.completionWithItemsHandler = { (activity, success, items, error) in
             if success {
+                self.save()
                 let applicationDelegate = (UIApplication.shared.delegate as! AppDelegate)
                 applicationDelegate.meme = self.meme
                 self.meme = Meme(topText: "TOP", bottomText: "BOTTOM", originalImage: UIImage(), memedImage: UIImage())
