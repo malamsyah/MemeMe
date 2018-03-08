@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UINavigationControllerDelegate {
+class MemeEditorViewController: UIViewController, UINavigationControllerDelegate {
     
     @IBOutlet weak var shareBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var cancelBarButtonItem: UIBarButtonItem!
@@ -133,7 +133,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
 }
 
-extension ViewController : UITextFieldDelegate{
+extension MemeEditorViewController : UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text == "TOP" || textField.text == "BOTTOM"{
             textField.text = ""
@@ -153,7 +153,7 @@ extension ViewController : UITextFieldDelegate{
     }
 }
 
-extension ViewController : UIImagePickerControllerDelegate {
+extension  MemeEditorViewController : UIImagePickerControllerDelegate {
     @IBAction func getImageFromCamera(_: AnyObject) {
         chooseSourceType(sourceType: .camera)
     }
